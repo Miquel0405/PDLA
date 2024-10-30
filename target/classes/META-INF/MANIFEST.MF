@@ -1,4 +1,6 @@
 Manifest-Version: 1.0
 Build-Jdk-Spec: 22
+Class-Path: mysql-connector-j-9.0.0.jar protobuf-java-4.26.1.jar
+Main-Class: fr.pdla.demo.HelloClass
 Created-By: Maven Integration for Eclipse
 
