@@ -1,19 +1,22 @@
 import java.util.ArrayList;
 
 public class Beneficiaire extends User{
-	private ArrayList<Besoin> besoins;
-	
+	private ArrayList<Mission> missions;
+
 	public Beneficiaire(int id, String nom, String prenom, String telephone, String mail, String adresse) {
 		super(id, nom, prenom, telephone, mail, adresse);
-		this.setBesoins(new ArrayList<>());
+		this.missions= new ArrayList<>();
+	}
+	
+	public void addMission(Mission mission) {
+		this.missions.add(mission);
 	}
 
-	public ArrayList<Besoin> getBesoins() {
-		return besoins;
+	public ArrayList<Mission> getMissions() {
+		return missions;
 	}
-
-	public void setBesoins(ArrayList<Besoin> besoins) {
-		this.besoins = besoins;
-	}
-
+	
+	
+	
+	
 }

@@ -1,26 +1,9 @@
-import java.util.ArrayList;
 
-public class Benevole {
-	private ArrayList<Aide> aides;
+public class Benevole extends User{
 
-	public Benevole() {
-		super();
-		this.aides = new ArrayList<>();
+	public Benevole(int id, String nom, String prenom, String telephone, String mail, String adresse) {
+		super(id, nom, prenom, telephone, mail, adresse);
 	}
-	
-	public void ProposerAide(Aide aide) {
-		this.aides.add(aide);
-	}
-
-	public ArrayList<Aide> getAides() {
-		return aides;
-	}
-
-	public void setAides(ArrayList<Aide> aides) {
-		this.aides = aides;
-	}
-	
-	
 	
 	
 }
