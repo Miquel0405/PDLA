@@ -12,7 +12,52 @@ public class database_interface {
 		return DriverManager.getConnection(url,username,password);
 	}
 
-	public void guardarUsuario(User user) {
+
+
+
+	public static int executeUpdateQuery(String query, Object... parameters) throws SQLException {
+        try (Connection connection = getConnection();
+            PreparedStatement statement = connection.prepareStatement(query)) {
+				System.out.println("Connected");
+            for (int i = 0; i < parameters.length; i++) {
+                statement.setObject(i + 1, parameters[i]);
+            }
+
+            return statement.executeUpdate(); // Returns the number of rows affected
+        }
+    }
+
+    // Insert data into the database
+	public static void insertData(String tableName, String columns, Object... values) throws SQLException {
+		String placeholders = String.join(", ", java.util.Collections.nCopies(values.length, "?")); 
+		String query = String.format("INSERT INTO %s (%s) VALUES (%s)", tableName, columns, placeholders);
+		executeUpdateQuery(query, values);
+	}
+
+
+
+    // Update data in the database
+    public static void updateData(String tableName, String setClause, String condition, Object... values) throws SQLException {
+        String query = String.format("UPDATE %s SET %s WHERE %s", tableName, setClause, condition);
+        executeUpdateQuery(query, values);
+    }
+
+    // Delete data from the database
+    public static void deleteData(String tableName, String condition, Object... values) throws SQLException {
+        String query = String.format("DELETE FROM %s WHERE %s", tableName, condition);
+        executeUpdateQuery(query, values);
+    }
+
+
+
+
+
+
+
+
+
+
+	public static void saveUser(User user) {
     	String queryUsers = "INSERT INTO Users (id, nom, prenom, telephone, mail, adresse) VALUES (?, ?, ?, ?, ?, ?)";
 
 		try (Connection connection = DriverManager.getConnection(url, username, password)) {
@@ -35,6 +80,18 @@ public class database_interface {
 			System.out.println("Error saving user: " + e.getMessage());
 		}
 	}
+
+
+
+
+
+
+	
+
+
+
+
+
 
 	
 }

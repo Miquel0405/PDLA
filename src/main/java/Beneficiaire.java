@@ -1,20 +1,18 @@
-import java.util.ArrayList;
+import java.sql.SQLException;
+
 
 public class Beneficiaire extends User{
-	private ArrayList<Mission> missions;
 
-	public Beneficiaire(int id, String nom, String prenom, String telephone, String mail, String adresse) {
-		super(id, nom, prenom, telephone, mail, adresse);
-		this.missions= new ArrayList<>();
+	public Beneficiaire(String nom, String prenom, String telephone, String mail, String adresse) {
+		super(nom, prenom, telephone, mail, adresse);
+
+		try {
+		database_interface.insertData("Beneficiaires", "idBeneficiaire", getId());
+		}catch (SQLException e){
+			e.printStackTrace();
+		}
 	}
 	
-	public void addMission(Mission mission) {
-		this.missions.add(mission);
-	}
-
-	public ArrayList<Mission> getMissions() {
-		return missions;
-	}
 	
 	
 	
