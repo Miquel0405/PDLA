@@ -8,11 +8,11 @@ public class User {
 	private String mail;
 	private String adresse;
 
-	protected static int count = 0;
+	//protected static int count = 0;
 	
 	public User(String nom, String prenom, String telephone, String mail, String adresse) {
-		count= count + 1;
-		this.id = count;
+		//count= count + 1;
+		//this.id = count;
 		this.nom = nom;
 		this.prenom = prenom;
 		this.telephone = telephone;

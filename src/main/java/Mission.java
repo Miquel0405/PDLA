@@ -33,7 +33,7 @@ public class Mission {
 		return beneficiaire;
 	}
 
-	public void setBenevole(Benevole benevole) {
+	public void addBenevole(Benevole benevole) {
 		this.benevole = benevole;
 		this.statut = "Validee";
 		try{

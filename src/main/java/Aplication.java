@@ -16,7 +16,8 @@ public class Aplication {
         }
 
         //Create a User
-        User benev1 = new User("Cena", "John", "555555555", "john.cena@invisible.com", "Nobody knows");
+        Benevole benev1 = new Benevole("Cena", "John", "555555555", "john.cena@invisible.com", "Nobody knows");
+        Benevole benev2 = new Benevole("Ca", "Jn", "5555555", "john.cen@invisible.com", "Noby knows");
         
     }
-}
+}/* potentiel solution for the id problem is to increment counter manually and get max value in table every time you reconnect */
