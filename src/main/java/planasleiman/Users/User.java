@@ -1,4 +1,4 @@
-package planasleiman;
+package planasleiman.Users;
 
 public class User {
 	private int id;

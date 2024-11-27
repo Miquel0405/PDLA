@@ -1,4 +1,6 @@
-package planasleiman;
+package planasleiman.Verifying;
+
+import planasleiman.Missions.Mission;
 
 public class VerifyingUser {
     private int id;
@@ -14,10 +16,30 @@ public class VerifyingUser {
         this.mail = mail;
     }
 
+    /*Getters */
+    
+
+
     public void validateMission(Mission mission){
         mission.setStatut("Accepted");
-
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getNomOrganisation() {
+        return nomOrganisation;
+    }
+
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public String getMail() {
+        return mail;
+    }
+
 
     public void denyMission(Mission mission){
         mission.setStatut("Denied");

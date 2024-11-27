@@ -1,4 +1,8 @@
-package planasleiman;
+package planasleiman.Missions;
+
+import planasleiman.Users.Beneficiaire;
+import planasleiman.Users.Benevole;
+import planasleiman.Verifying.VerifyingUser;
 
 public class Mission {
 	private int idMission;

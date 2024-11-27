@@ -1,6 +1,8 @@
-C:\Users\USUARIO\Desktop\INSA\4t\PDLAmaven\pdla_plana_sleiman\src\main\java\planasleiman\Beneficiaire.java
-C:\Users\USUARIO\Desktop\INSA\4t\PDLAmaven\pdla_plana_sleiman\src\main\java\planasleiman\Benevole.java
+C:\Users\USUARIO\Desktop\INSA\4t\PDLAmaven\pdla_plana_sleiman\src\main\java\planasleiman\database\database_interface.java
 C:\Users\USUARIO\Desktop\INSA\4t\PDLAmaven\pdla_plana_sleiman\src\main\java\planasleiman\Main.java
-C:\Users\USUARIO\Desktop\INSA\4t\PDLAmaven\pdla_plana_sleiman\src\main\java\planasleiman\Mission.java
-C:\Users\USUARIO\Desktop\INSA\4t\PDLAmaven\pdla_plana_sleiman\src\main\java\planasleiman\User.java
-C:\Users\USUARIO\Desktop\INSA\4t\PDLAmaven\pdla_plana_sleiman\src\main\java\planasleiman\VerifyingUser.java
+C:\Users\USUARIO\Desktop\INSA\4t\PDLAmaven\pdla_plana_sleiman\src\main\java\planasleiman\Missions\Mission.java
+C:\Users\USUARIO\Desktop\INSA\4t\PDLAmaven\pdla_plana_sleiman\src\main\java\planasleiman\Users\Beneficiaire.java
+C:\Users\USUARIO\Desktop\INSA\4t\PDLAmaven\pdla_plana_sleiman\src\main\java\planasleiman\Users\Benevole.java
+C:\Users\USUARIO\Desktop\INSA\4t\PDLAmaven\pdla_plana_sleiman\src\main\java\planasleiman\Users\User.java
+C:\Users\USUARIO\Desktop\INSA\4t\PDLAmaven\pdla_plana_sleiman\src\main\java\planasleiman\Users\UserController.java
+C:\Users\USUARIO\Desktop\INSA\4t\PDLAmaven\pdla_plana_sleiman\src\main\java\planasleiman\Verifying\VerifyingUser.java

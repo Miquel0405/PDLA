@@ -1,4 +1,6 @@
-package planasleiman;
+package planasleiman.Users;
+
+import planasleiman.Missions.Mission;
 
 public class Beneficiaire extends User{
 
