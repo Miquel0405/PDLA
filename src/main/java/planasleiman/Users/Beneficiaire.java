@@ -9,8 +9,8 @@ public class Beneficiaire extends User{
 	}
 
 	/*Un beneficiaire crée une demande d'aide */
-	public void CreateMission(int idMission, String title, String description){
-		new Mission(idMission, title, description, this);
+	public Mission CreateMission(int idMission, String title, String description){
+		return new Mission(idMission, title, description, this);
 	}
 	
 }
