@@ -3,7 +3,10 @@ package planasleiman.database;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class database_interface {
 	private static String url = "jdbc:mysql://srv-bdens.insa-toulouse.fr:3306/projet_gei_013";
@@ -13,9 +16,6 @@ public class database_interface {
 	public static Connection getConnection() throws SQLException{
 		return DriverManager.getConnection(url,username,password);
 	}
-
-
-
 
 	public static int executeUpdateQuery(String query, Object... parameters) throws SQLException {
         try (Connection connection = getConnection();
@@ -49,5 +49,41 @@ public class database_interface {
         String query = String.format("DELETE FROM %s WHERE %s", tableName, condition);
         executeUpdateQuery(query, values);
     }
+
+    public static List<String> getAllregisters(String table) {
+        List<String> registers = new ArrayList<>();
+        String sql = "SELECT * FROM " + table;
+
+        try {
+            Connection conexion = getConnection();
+            PreparedStatement statement = conexion.prepareStatement(sql);
+            ResultSet result = statement.executeQuery();
+
+            while (result.next()) {
+                StringBuilder register = new StringBuilder();
+                int columns = result.getMetaData().getColumnCount();
+                for (int i = 1; i <= columns; i++) {
+                    register.append(result.getMetaData().getColumnName(i))
+                            .append(": ")
+                            .append(result.getString(i))
+                            .append(", ");
+                }
+                registers.add(register.toString());
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error obtaining all registers " + e.getMessage());
+        }
+        return registers;
+    }
+
+    public static void cleanTable(String table) throws SQLException{
+        String sql = "ALTER TABLE " + table + "AUTO_INCREMENT = 1";
+        Connection connection = database_interface.getConnection();
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.execute();
+    }
+
+
 
 }

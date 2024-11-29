@@ -1,6 +1,6 @@
 package planasleiman;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -38,23 +38,23 @@ public class MissionControllerTest {
 
     @Test
     void createMissionTest(){
-        Beneficiaire benef = new Beneficiaire(1, "Cena", "Jhon", "111-111-111", "mail@mail.com", "adresse1");
+        Beneficiaire benef = new Beneficiaire( "Cena", "Jhon", "111-111-111", "mail@mail.com", "adresse1");
         Mission mission = benef.CreateMission(1, "Mission1", "description mission 1");
         assertDoesNotThrow(()->MissionController.saveMission(mission));
     }
 
     @Test
     void couvrirMissionTest(){
-        Beneficiaire benef = new Beneficiaire(1, "Cena", "Jhon", "111-111-111", "mail@mail.com", "adresse1");
+        Beneficiaire benef = new Beneficiaire("Cena", "Jhon", "111-111-111", "mail@mail.com", "adresse1");
         Mission mission = benef.CreateMission(1, "Mission1", "description mission 1");
         MissionController.saveMission(mission);
-        Benevole benev = new Benevole(2, "nom", "prenom", "telephone", "mail", "adresse");
+        Benevole benev = new Benevole( "nom", "prenom", "telephone", "mail", "adresse");
         assertDoesNotThrow(()->MissionController.changeMissionBenevole(mission.getIdMission(), benev));
     }
 
     @Test
     void changestatusTest(){
-        Beneficiaire benef = new Beneficiaire(1, "Cena", "Jhon", "111-111-111", "mail@mail.com", "adresse1");
+        Beneficiaire benef = new Beneficiaire( "Cena", "Jhon", "111-111-111", "mail@mail.com", "adresse1");
         Mission mission = benef.CreateMission(1, "Mission1", "description mission 1");
         MissionController.saveMission(mission);
         assertDoesNotThrow(()->MissionController.changeMissionStatus(mission.getIdMission(), "NEW_STATUS"));

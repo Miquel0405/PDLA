@@ -1,15 +1,68 @@
 package planasleiman.Users;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import planasleiman.database.database_interface;
 
 public class UserController {
 
-    public static void saveUser(User user) {
-    	String queryUsers = "INSERT INTO Users (id, nom, prenom, telephone, mail, adresse) VALUES (?, ?, ?, ?, ?, ?)";
+    public static void saveUser(User user, String usertype) {
+		try {
+			database_interface.insertData("Users", "nom, prenom, telephone, mail, adresse, usertype", user.getNom(), user.getPrenom(), user.getTelephone(), user.getMail(), user.getAdresse(), usertype);
+		} catch (SQLException e) {
+			System.err.println("Error adding user to database");
+			e.printStackTrace();
+		}
+	}
+
+    public static void registerBeneficiaire(Beneficiaire beneficiaire) throws SQLException{
+        //String queryBeneficiares = "INSERT INTO Beneficiaires (id) VALUES (?)";
+        saveUser(beneficiaire, "beneficiaire");
+		/*try {
+			database_interface.insertData("Beneficiaires","idBeneficiaires", beneficiaire.getId());
+		} catch (SQLException e) {
+			System.err.println("Error adding beneficiaire to database");
+			e.printStackTrace();
+		}*/
+		
+    }
+
+    public static void registerBenevole(Benevole benevole) throws SQLException{
+        saveUser(benevole, "benevole");
+		/*try {
+			database_interface.insertData("Benevole","");
+		} catch (SQLException e) {
+			System.err.println("Error adding benevole to database");
+			e.printStackTrace();
+		}*/
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*String queryUsers = "INSERT INTO Users (idUsers, nom, prenom, telephone, mail, adresse) VALUES (?, ?, ?, ?, ?, ?)";
 
 		try {
             Connection connection = database_interface.getConnection();
@@ -29,28 +82,11 @@ public class UserController {
 			//System.out.println("User save correctly");
 		} catch (SQLException e) {
 			System.out.println("Error saving user: " + e.getMessage());
-		}
-	}
+		}*/
 
-    public static void registerBeneficiaire(Beneficiaire beneficiaire) throws SQLException{
-        String queryBeneficiares = "INSERT INTO Beneficiaires (id) VALUES (?)";
-        saveUser(beneficiaire);
-        // Insert in Users
-		try (Connection connection = database_interface.getConnection();
+
+/*try (Connection connection = database_interface.getConnection();
             PreparedStatement stmtBeneficiares = connection.prepareStatement(queryBeneficiares)) {
             stmtBeneficiares.executeUpdate();
             System.out.println("Beneficiaire save correctly");
-		}
-    }
-
-    public static void registerBenevole(Benevole benevole) throws SQLException{
-        String queryBenevoles = "INSERT INTO Benevoles (id) VALUES (?)";
-        saveUser(benevole);
-        // Insert in Users
-		try (Connection connection = database_interface.getConnection();
-            PreparedStatement stmtBenevoles = connection.prepareStatement(queryBenevoles)) {
-            stmtBenevoles.executeUpdate();
-            System.out.println("Benevole save correctly");
-		}
-    }
-}
+		}*/

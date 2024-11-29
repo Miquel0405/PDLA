@@ -1,9 +1,10 @@
 package planasleiman;
 
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.*;
+import java.util.List;
+
+import planasleiman.Users.User;
+import planasleiman.Users.UserController;
+import planasleiman.database.database_interface;
 
 public class Main {
 
@@ -12,7 +13,7 @@ public class Main {
      * this method should be invoked from the
      * event-dispatching thread.
      */
-    private static void createAndShowGUI() {
+    /*private static void createAndShowGUI() {
         // Create and set up the main window
         JFrame frame = new JFrame("User Registration");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -51,7 +52,7 @@ public class Main {
     /**
      * Open the registration form
      */
-    private static void openRegistrationForm() {
+    /*private static void openRegistrationForm() {
         // Create a new frame for the registration form
         JFrame formFrame = new JFrame("User Registration Form");
         formFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -156,5 +157,22 @@ public class Main {
             }
         });
     }
+}*/
+
+public static void main(String[] args) {
+    // Ejemplo de uso
+    User user = new User("nom","prenom","telephone","mail", "adresse");
+    UserController.saveUser(user, "Not_Set");
+    List<String> registros = database_interface.getAllregisters("Users"); // Cambia "usuarios" por tu tabla
+
+    if (registros.isEmpty()) {
+        System.out.println("No se encontraron registros.");
+    } else {
+        System.out.println("Registros encontrados:");
+        for (String registro : registros) {
+            System.out.println(registro);
+        }
+    }
+}
 }
 

@@ -10,8 +10,8 @@ public class User {
 
 
 	/*Constructor */
-	public User(int id, String nom, String prenom, String telephone, String mail, String adresse) {
-		this.id = id;
+	public User(String nom, String prenom, String telephone, String mail, String adresse) {
+		//this.id = id;
 		this.nom = nom;
 		this.prenom = prenom;
 		this.telephone = telephone;

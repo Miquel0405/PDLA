@@ -4,8 +4,8 @@ import planasleiman.Missions.Mission;
 
 public class Benevole extends User{
 
-	public Benevole(int id, String nom, String prenom, String telephone, String mail, String adresse) {
-		super(id, nom, prenom, telephone, mail, adresse);
+	public Benevole(String nom, String prenom, String telephone, String mail, String adresse) {
+		super(nom, prenom, telephone, mail, adresse);
 		
 	}
 

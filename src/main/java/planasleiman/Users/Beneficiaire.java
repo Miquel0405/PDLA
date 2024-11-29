@@ -4,8 +4,8 @@ import planasleiman.Missions.Mission;
 
 public class Beneficiaire extends User{
 
-	public Beneficiaire(int id, String nom, String prenom, String telephone, String mail, String adresse) {
-		super(id, nom, prenom, telephone, mail, adresse);
+	public Beneficiaire(String nom, String prenom, String telephone, String mail, String adresse) {
+		super(nom, prenom, telephone, mail, adresse);
 	}
 
 	/*Un beneficiaire crée une demande d'aide */
