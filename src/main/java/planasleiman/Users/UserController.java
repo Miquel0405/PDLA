@@ -16,25 +16,11 @@ public class UserController {
 	}
 
     public static void registerBeneficiaire(Beneficiaire beneficiaire) throws SQLException{
-        //String queryBeneficiares = "INSERT INTO Beneficiaires (id) VALUES (?)";
         saveUser(beneficiaire, "beneficiaire");
-		/*try {
-			database_interface.insertData("Beneficiaires","idBeneficiaires", beneficiaire.getId());
-		} catch (SQLException e) {
-			System.err.println("Error adding beneficiaire to database");
-			e.printStackTrace();
-		}*/
-		
     }
 
     public static void registerBenevole(Benevole benevole) throws SQLException{
         saveUser(benevole, "benevole");
-		/*try {
-			database_interface.insertData("Benevole","");
-		} catch (SQLException e) {
-			System.err.println("Error adding benevole to database");
-			e.printStackTrace();
-		}*/
     }
 }
 

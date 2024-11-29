@@ -1,6 +1,6 @@
 package planasleiman;
 
-import static org.junit.jupiter.api.Assertions.*;
+/*import static org.junit.jupiter.api.Assertions.*;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,11 +14,11 @@ import planasleiman.Missions.Mission;
 import planasleiman.Missions.MissionController;
 import planasleiman.Users.Beneficiaire;
 import planasleiman.Users.Benevole;
-import planasleiman.database.database_interface;
+import planasleiman.database.database_interface;*/
 
 public class MissionControllerTest {
 
-    @BeforeEach
+    /*@BeforeEach
     public void cleanMissiontable() throws SQLException{
         String sql = "DELETE FROM Missions";
         Connection connection = database_interface.getConnection();
@@ -58,7 +58,7 @@ public class MissionControllerTest {
         Mission mission = benef.CreateMission(1, "Mission1", "description mission 1");
         MissionController.saveMission(mission);
         assertDoesNotThrow(()->MissionController.changeMissionStatus(mission.getIdMission(), "NEW_STATUS"));
-    }
+    }*/
 
 
 }

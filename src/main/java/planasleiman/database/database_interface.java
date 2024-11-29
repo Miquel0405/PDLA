@@ -78,7 +78,7 @@ public class database_interface {
     }
 
     public static void cleanTable(String table) throws SQLException{
-        String sql = "ALTER TABLE " + table + "AUTO_INCREMENT = 1";
+        String sql = "TRUNCATE TABLE " + table;
         Connection connection = database_interface.getConnection();
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.execute();
