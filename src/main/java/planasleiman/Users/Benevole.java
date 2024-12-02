@@ -1,15 +1,27 @@
 package planasleiman.Users;
 
-import planasleiman.Missions.Mission;
+import java.sql.SQLException;
+
+//import planasleiman.Missions.Mission;
+import planasleiman.database.Database_Controller;
 
 public class Benevole extends User{
 
 	public Benevole(String nom, String prenom, String telephone, String mail, String adresse) {
 		super(nom, prenom, telephone, mail, adresse);
-		
 	}
 
-	public void CouvrirMission(Mission mission){
-		mission.setBenevole(this);
+	@Override
+	public void saveinDatabase(){
+		try {
+			Database_Controller.insertData("Users", "nom, prenom, telephone, mail, adresse, type", getNom(), getPrenom(), getTelephone(), getMail(), getAdresse(), "Benevole");
+		} catch (SQLException e) {
+			System.err.println("Error adding a benevole to the database");
+			e.printStackTrace();
+		}
 	}
+
+	/*public void CouvrirMission(Mission mission){
+		mission.setBenevole(this);
+	}*/
 }

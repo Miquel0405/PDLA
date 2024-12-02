@@ -1,6 +1,9 @@
 package planasleiman.Users;
 
-import planasleiman.Missions.Mission;
+import java.sql.SQLException;
+
+//import planasleiman.Missions.Mission;
+import planasleiman.database.Database_Controller;
 
 public class Beneficiaire extends User{
 
@@ -8,9 +11,19 @@ public class Beneficiaire extends User{
 		super(nom, prenom, telephone, mail, adresse);
 	}
 
-	/*Un beneficiaire crée une demande d'aide */
-	public Mission CreateMission(int idMission, String title, String description){
-		return new Mission(idMission, title, description, this);
+	@Override
+	public void saveinDatabase(){
+		try {
+			Database_Controller.insertData("Users", "nom, prenom, telephone, mail, adresse, type", getNom(), getPrenom(), getTelephone(), getMail(), getAdresse(), "Beneficiaire");
+		} catch (SQLException e) {
+			System.err.println("Error adding a beneficiaire to the database");
+			e.printStackTrace();
+		}
 	}
+
+	/*Un beneficiaire crée une demande d'aide */
+	/*public Mission CreateMission(int idMission, String title, String description){
+		return new Mission(idMission, title, description, this);
+	}*/
 	
 }

@@ -2,60 +2,70 @@ package planasleiman;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
-import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import planasleiman.Users.Beneficiaire;
 import planasleiman.Users.Benevole;
-import planasleiman.Users.User;
-import planasleiman.Users.UserController;
-import planasleiman.database.database_interface;
+import planasleiman.database.Database_Controller;
 
 public class RegisterUsersTest {
 
-    User user = new User("user","prenom","telephone","mail", "adresse");
-    Beneficiaire benef = new Beneficiaire("benef","prenom","telephone","mail", "adresse");
-    Benevole benev = new Benevole("benev","prenom","telephone","mail", "adresse");
-    List<String> registers;
 
-    //@BeforeAll
-    //public void cleanUsersTable() throws SQLException {
-    //    database_interface.cleanTable("Users");
-    //}
-
-    @AfterEach
-    public void cleanUsersTable() throws SQLException {
-        database_interface.cleanTable("Users");
+    @BeforeEach
+    void cleanUserTable() throws Exception {
+        try (Connection conn = Database_Controller.getConnection();
+            PreparedStatement stmt = conn.prepareStatement("TRUNCATE TABLE Users")) {
+            stmt.executeUpdate();
+        }
     }
 
     @Test
-    void saveUserTest(){
-        assertDoesNotThrow(()->UserController.saveUser(user, "Not_Set"));
-        registers = database_interface.getAllregisters("Users");
-        String expected = "idUser: 1, nom: nom, prenom: prenom, telephone: telephone, mail: mail, adresse: adresse, usertype: Not_Set,";
-        List<String> goodresult = new ArrayList<>();
-        goodresult.add(expected);
-        assert (registers.equals(goodresult));
+    void registrerBenevoleTest() throws Exception {
+        Benevole benevole = new Benevole("NomTest", "PrenomTest", "123456789", "test@mail.com", "Adresse test");
 
+        benevole.saveinDatabase();
+
+        // Verifica si se registró correctamente
+        try (Connection conn = Database_Controller.getConnection();
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Users WHERE idUsers = ?")) {
+            stmt.setString(1, String.valueOf(1));
+            ResultSet rs = stmt.executeQuery();
+
+            assertTrue(rs.next());
+            assertEquals("NomTest", rs.getString("nom"));
+            assertEquals("PrenomTest", rs.getString("prenom"));
+            assertEquals("123456789", rs.getString("telephone"));
+            assertEquals("test@mail.com", rs.getString("mail"));
+            assertEquals("Adresse test", rs.getString("adresse"));
+            assertEquals("Benevole", rs.getString("type"));
+        }
     }
 
     @Test
-    void RegisterBeneficiaireTest(){
-        assertDoesNotThrow(()->UserController.registerBeneficiaire(benef));
+    void registrerBeneficiaireTest() throws Exception {
+        Beneficiaire beneficiaire = new Beneficiaire("NomTest", "PrenomTest", "123456789", "test@mail.com", "Adresse test");
+        
+        // Invoca el método a probar
+        beneficiaire.saveinDatabase();
+
+        // Verifica si se registró correctamente
+        try (Connection conn = Database_Controller.getConnection();
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Users WHERE idUsers = ?")) {
+            stmt.setString(1, String.valueOf(1));
+            ResultSet rs = stmt.executeQuery();
+
+            assertTrue(rs.next());
+            assertEquals("NomTest", rs.getString("nom"));
+            assertEquals("PrenomTest", rs.getString("prenom"));
+            assertEquals("123456789", rs.getString("telephone"));
+            assertEquals("test@mail.com", rs.getString("mail"));
+            assertEquals("Adresse test", rs.getString("adresse"));
+            assertEquals("Beneficiaire", rs.getString("type"));
+        }
     }
-
-    @Test
-    void RegisterBenevoleTest(){
-        assertDoesNotThrow(()->UserController.registerBenevole(benev));
-    }
-
-    //@Test
-    //void cleanUsersTable() throws SQLException {
-    //    database_interface.cleanTable("Users");
-    //}
-
 }

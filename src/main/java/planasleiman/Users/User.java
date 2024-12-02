@@ -1,17 +1,14 @@
 package planasleiman.Users;
 
-public class User {
-	private int id;
+public abstract class User {
 	private String nom;
 	private String prenom;
 	private String telephone;
 	private String mail;
 	private String adresse;
 
-
 	/*Constructor */
 	public User(String nom, String prenom, String telephone, String mail, String adresse) {
-		//this.id = id;
 		this.nom = nom;
 		this.prenom = prenom;
 		this.telephone = telephone;
@@ -19,13 +16,7 @@ public class User {
 		this.adresse = adresse;
 	}
 
-
-
 	/*Getters*/
-	public int getId() {
-		return id;
-	}
-
 	public String getNom() {
 		return nom;
 	}
@@ -45,6 +36,8 @@ public class User {
 	public String getAdresse() {
 		return adresse;
 	}
-	
-	
+
+
+	//Save in the database
+	public abstract void saveinDatabase();
 }
