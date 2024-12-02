@@ -1,6 +1,7 @@
 package planasleiman.Users;
 
 public abstract class User {
+	private int idUser;
 	private String nom;
 	private String prenom;
 	private String telephone;
@@ -37,7 +38,16 @@ public abstract class User {
 		return adresse;
 	}
 
+	public int getIdUser() {
+		return idUser;
+	}
+
+	public void setIdUser(int idUser) {
+		this.idUser = idUser;
+	}
 
 	//Save in the database
 	public abstract void saveinDatabase();
+
+	
 }

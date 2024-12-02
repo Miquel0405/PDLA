@@ -17,35 +17,46 @@ public class Database_Controller {
 		return DriverManager.getConnection(url,username,password);
 	}
 
-	public static int executeUpdateQuery(String query, Object... parameters) throws SQLException {
-        try (Connection connection = getConnection();
-            PreparedStatement statement = connection.prepareStatement(query)) {
-				System.out.println("Connected");
-            for (int i = 0; i < parameters.length; i++) {
-                statement.setObject(i + 1, parameters[i]);
-            }
-
-            return statement.executeUpdate(); // Returns the number of rows affected
-        }
-    }
-
     // Insert data into the database
-	public static void insertData(String tableName, String columns, Object... values) throws SQLException {
+	public static int insertData(String tableName, String columns, Object... values) throws SQLException {
 		String placeholders = String.join(", ", java.util.Collections.nCopies(values.length, "?")); 
 		String query = String.format("INSERT INTO %s (%s) VALUES (%s)", tableName, columns, placeholders);
-		executeUpdateQuery(query, values);
+		//return executeUpdateQuery(query, values);
+        try (Connection connection = getConnection();
+            PreparedStatement statement = connection.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS)) {
+				System.out.println("Connected");
+            for (int i = 0; i < values.length; i++) {
+                statement.setObject(i + 1, values[i]);
+            }
+            statement.executeUpdate();
+            try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    return generatedKeys.getInt(1); // Devuelve la primera clave generada
+                } else {
+                    throw new SQLException("La inserción falló, no se generó ningún ID.");
+                }
+            }
+        }
 	}
 
     // Update data in the database
     public static void updateData(String tableName, String setClause, String condition, Object... values) throws SQLException {
         String query = String.format("UPDATE %s SET %s WHERE %s", tableName, setClause, condition);
-        executeUpdateQuery(query, values);
+        //executeUpdateQuery(query, values);
+        try (Connection connection = getConnection();
+            PreparedStatement statement = connection.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS)) {
+				System.out.println("Connected");
+            for (int i = 0; i < values.length; i++) {
+                statement.setObject(i + 1, values[i]);
+            }
+            statement.executeUpdate();
+        }
     }
 
     // Delete data from the database
     public static void deleteData(String tableName, String condition, Object... values) throws SQLException {
         String query = String.format("DELETE FROM %s WHERE %s", tableName, condition);
-        executeUpdateQuery(query, values);
+        //executeUpdateQuery(query, values);
     }
 
 

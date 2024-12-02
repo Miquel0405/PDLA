@@ -19,7 +19,7 @@ public class RegisterUsersTest {
     @BeforeEach
     void cleanUserTable() throws Exception {
         try (Connection conn = Database_Controller.getConnection();
-            PreparedStatement stmt = conn.prepareStatement("TRUNCATE TABLE Users")) {
+            PreparedStatement stmt = conn.prepareStatement("DELETE FROM Users")) {
             stmt.executeUpdate();
         }
     }
@@ -33,7 +33,7 @@ public class RegisterUsersTest {
         // Verifica si se registró correctamente
         try (Connection conn = Database_Controller.getConnection();
             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Users WHERE idUsers = ?")) {
-            stmt.setString(1, String.valueOf(1));
+            stmt.setString(1, String.valueOf(benevole.getIdUser()));
             ResultSet rs = stmt.executeQuery();
 
             assertTrue(rs.next());
@@ -56,7 +56,7 @@ public class RegisterUsersTest {
         // Verifica si se registró correctamente
         try (Connection conn = Database_Controller.getConnection();
             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Users WHERE idUsers = ?")) {
-            stmt.setString(1, String.valueOf(1));
+            stmt.setString(1, String.valueOf(beneficiaire.getIdUser()));
             ResultSet rs = stmt.executeQuery();
 
             assertTrue(rs.next());
