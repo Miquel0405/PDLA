@@ -1,32 +1,23 @@
-import java.sql.SQLException;
+package planasleiman.Users;
 
-public class User {
-	private int id;
+public abstract class User {
+	private int idUser;
 	private String nom;
 	private String prenom;
 	private String telephone;
 	private String mail;
 	private String adresse;
 
-	//protected static int count = 0;
-	
+	/*Constructor */
 	public User(String nom, String prenom, String telephone, String mail, String adresse) {
-		//count= count + 1;
-		//this.id = count;
 		this.nom = nom;
 		this.prenom = prenom;
 		this.telephone = telephone;
 		this.mail = mail;
 		this.adresse = adresse;
-		//database_interface.saveUser(this);
-		try {
-		database_interface.insertData("Users", "nom, prenom, telephone, mail, adresse",
-		nom, prenom, telephone, mail, adresse);
-		}catch (SQLException e){
-			e.printStackTrace();
-		}
 	}
-	
+
+	/*Getters*/
 	public String getNom() {
 		return nom;
 	}
@@ -47,13 +38,16 @@ public class User {
 		return adresse;
 	}
 
-	public int getId() {
-		return id;
+	public int getIdUser() {
+		return idUser;
 	}
 
-	
+	public void setIdUser(int idUser) {
+		this.idUser = idUser;
+	}
 
-	
-	
+	//Save in the database
+	public abstract void saveinDatabase();
+
 	
 }
