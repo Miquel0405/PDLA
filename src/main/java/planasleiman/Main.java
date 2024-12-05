@@ -1,186 +1,115 @@
 package planasleiman;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.util.List;
+
 import planasleiman.Missions.Mission;
 import planasleiman.Users.Beneficiaire;
 import planasleiman.Users.Benevole;
 import planasleiman.Verifying.Valideur;
+import planasleiman.database.Database_Controller;
 
 public class Main {
-    // private static void createAndShowGUI() {
-    //     // Crear y configurar la ventana principal
-    //     JFrame frame = new JFrame("User Registration");
-    //     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    //     frame.setLayout(new BorderLayout());
 
-    //     // Etiqueta de título
-    //     JLabel titleLabel = new JLabel("Welcome to the Registration System");
-    //     titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
-    //     titleLabel.setPreferredSize(new Dimension(300, 50));
-    //     frame.add(titleLabel, BorderLayout.NORTH);
+    private static boolean Mission_Accepte = true;
 
-    //     // Panel para el botón
-    //     JPanel buttonPanel = new JPanel();
-    //     buttonPanel.setLayout(new FlowLayout());
-
-    //     // Botón para registro de usuarios
-    //     JButton registerButton = new JButton("Register New User");
-    //     buttonPanel.add(registerButton);
-    //     frame.add(buttonPanel, BorderLayout.CENTER);
-
-    //     // Agregar un ActionListener al botón
-    //     registerButton.addActionListener(new ActionListener() {
-    //         @Override
-    //         public void actionPerformed(ActionEvent e) {
-    //             openRegistrationForm();
-    //         }
-    //     });
-
-    //     // Configuración final de la ventana
-    //     frame.setSize(400, 200);
-    //     frame.setLocationRelativeTo(null); // Centrar la ventana
-    //     frame.setVisible(true);
-    // }
-
-    // /**
-    //  * Abre el formulario de registro.
-    //  */
-    // private static void openRegistrationForm() {
-    //     // Crear un nuevo marco para el formulario de registro
-    //     JFrame formFrame = new JFrame("User Registration Form");
-    //     formFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-    //     formFrame.setLayout(new GridLayout(8, 2, 10, 10));
-    //     formFrame.setSize(400, 350);
-
-    //     // Componentes del formulario
-    //     JLabel userTypeLabel = new JLabel("User Type:");
-    //     String[] userTypes = {"Volunteer", "Person in Need"};
-    //     JComboBox<String> userTypeDropdown = new JComboBox<>(userTypes);
-
-    //     JLabel lastNameLabel = new JLabel("Last Name:");
-    //     JTextField lastNameField = new JTextField();
-
-    //     JLabel firstNameLabel = new JLabel("First Name:");
-    //     JTextField firstNameField = new JTextField();
-
-    //     JLabel emailLabel = new JLabel("Email:");
-    //     JTextField emailField = new JTextField();
-
-    //     JLabel phoneLabel = new JLabel("Phone:");
-    //     JTextField phoneField = new JTextField();
-
-    //     JLabel addressLabel = new JLabel("Address:");
-    //     JTextField addressField = new JTextField();
-
-    //     JButton submitButton = new JButton("Submit");
-    //     JLabel statusLabel = new JLabel("");
-
-    //     // Agregar componentes al formulario
-    //     formFrame.add(userTypeLabel);
-    //     formFrame.add(userTypeDropdown);
-    //     formFrame.add(lastNameLabel);
-    //     formFrame.add(lastNameField);
-    //     formFrame.add(firstNameLabel);
-    //     formFrame.add(firstNameField);
-    //     formFrame.add(emailLabel);
-    //     formFrame.add(emailField);
-    //     formFrame.add(phoneLabel);
-    //     formFrame.add(phoneField);
-    //     formFrame.add(addressLabel);
-    //     formFrame.add(addressField);
-    //     formFrame.add(new JLabel()); // Espacio vacío
-    //     formFrame.add(submitButton);
-    //     formFrame.add(new JLabel()); // Espacio vacío
-    //     formFrame.add(statusLabel);
-
-    //     // Funcionalidad del botón "Submit"
-    //     submitButton.addActionListener(new ActionListener() {
-    //         @Override
-    //         public void actionPerformed(ActionEvent e) {
-    //             String userType = (String) userTypeDropdown.getSelectedItem();
-    //             String lastName = lastNameField.getText().trim();
-    //             String firstName = firstNameField.getText().trim();
-    //             String email = emailField.getText().trim();
-    //             String phone = phoneField.getText().trim();
-    //             String address = addressField.getText().trim();
-
-    //             if (lastName.isEmpty() || firstName.isEmpty() || email.isEmpty() || phone.isEmpty() || address.isEmpty()) {
-    //                 statusLabel.setText("Please fill in all fields.");
-    //                 statusLabel.setForeground(Color.RED);
-    //             } else {
-    //                 // Simular guardado de datos
-    //                 if (userType=="Person in need"){
-    //                     Beneficiaire beneficiaire = new Beneficiaire(lastName, firstName, phone, email, address);
-    //                     beneficiaire.saveinDatabase();
-    //                 }else if (userType=="Volunteer"){
-    //                     Benevole benevole = new Benevole(lastName, firstName, phone, email, address);
-    //                     benevole.saveinDatabase();
-    //                 }
-    //                 System.out.println("User Type: " + userType);
-    //                 System.out.println("Last Name: " + lastName);
-    //                 System.out.println("First Name: " + firstName);
-    //                 System.out.println("Email: " + email);
-    //                 System.out.println("Phone: " + phone);
-    //                 System.out.println("Address: " + address);
-
-    //                 statusLabel.setText("Registration successful!");
-    //                 statusLabel.setForeground(Color.GREEN);
-
-    //                 // Limpiar campos
-    //                 lastNameField.setText("");
-    //                 firstNameField.setText("");
-    //                 emailField.setText("");
-    //                 phoneField.setText("");
-    //                 addressField.setText("");
-    //             }
-    //         }
-    //     });
-
-    //     // Mostrar el formulario
-    //     formFrame.setLocationRelativeTo(null); // Centrar el formulario
-    //     formFrame.setVisible(true);
-    // }
-
-//     public static void main(String[] args) {
-//         // Crear y mostrar la GUI en el hilo de despacho de eventos
-//         javax.swing.SwingUtilities.invokeLater(new Runnable() {
-//             public void run() {
-//                 createAndShowGUI();
-//             }
-//         });
-//     }
-// }
-
-    
+    public static void cleanTables() throws Exception {
+        try (Connection conn = Database_Controller.getConnection();
+            PreparedStatement stmt1 = conn.prepareStatement("DELETE FROM Missions")) {
+            stmt1.executeUpdate();
+        }
+        try (Connection conn = Database_Controller.getConnection();
+            PreparedStatement stmt2 = conn.prepareStatement("DELETE FROM Users")) {
+            stmt2.executeUpdate();
+        }
+        try (Connection conn = Database_Controller.getConnection();
+            PreparedStatement stmt2 = conn.prepareStatement("DELETE FROM Avis")) {
+            stmt2.executeUpdate();
+        }
+        try (Connection conn = Database_Controller.getConnection();
+            PreparedStatement stmt2 = conn.prepareStatement("DELETE FROM Valideurs")) {
+            stmt2.executeUpdate();
+        }
+    }
+        
     public static void main(String[] args) {
-
+        try{
+            cleanTables();
+        }catch (Exception e){
+            System.err.println("Impossible de supprimer le contenu des tables");
+            e.printStackTrace();
+        }
         //On cree un nouveau beneficiaire et on l'enregistre dans la base de donnees
-        Beneficiaire beneficiaire = new Beneficiaire("NomTest", "PrenomTest", "123456789", "test@mail.com", "Adresse test");
+        Beneficiaire beneficiaire = new Beneficiaire("Plana", "Miquel", "777-777-777", "planapin@insa-toulouse.fr", "Adresse Miquel Plana");
         beneficiaire.saveinDatabase();
 
         // On cree un nouvel utilisateur valideur et on l'enregistre dans la base de donnees
-        Valideur val = new Valideur("valideur", "123456789","valideur@mail.com");
+        Valideur val = new Valideur("Hopital valideur", "666-666-666","valideur@mail.com");
         val.saveValideur();
 
         //On cree une nouvelle mission ayant comme beneficiaire et utilisateur valideur ceux qu'on vient de creer (la mission est directement enregistree dans la base de donnees)
         Mission mission = beneficiaire.CreateMission("MissionTest", "DescriptionTest", val);
 
         //On cree un nouveau benevole et on l'enregistre dans la base de donnees
-        Benevole benevole = new Benevole("NomTest", "PrenomTest", "123456789", "test@mail.com", "Adresse test");
+        Benevole benevole = new Benevole("Sleiman", "Mohamed", "555-555-555", "sleiman@insa-toulouse.fr", "Adresse Mohamed Sleiman");
         benevole.saveinDatabase();
 
+        if (Mission_Accepte){
+            val.validateMission(mission, Mission_Accepte, null);
+
+            // Le benevole qu'on vient de creer s'incrit dans la mission disponible
+            benevole.CouvrirMission(mission);
+
+
+            //Le benevole termine la mission
+            benevole.terminerMission(mission);
+
+            //Et il laisse un avis
+            benevole.laisserAvis(mission, "Bonne mission");
+        }
+        else{
+            val.validateMission(mission, Mission_Accepte, "La mission n'a été pas acceptée parce que...");
+        }
+
+
+        System.out.println("Contenu table Users: ");
+        List<String> allRegistersUsers = Database_Controller.getAllregisters("Users");
+        for (String register : allRegistersUsers) {
+            System.out.println(register);
+        }
+        System.out.println();
+
+
+        System.out.println("Contenu table Missions: ");
+        List<String> allRegistersMissions = Database_Controller.getAllregisters("Missions");
+        for (String register : allRegistersMissions) {
+            System.out.println(register);
+        }
+        System.out.println();
+
+
+        System.out.println("Contenu table Valideurs: ");
+        List<String> allRegistersValideurs = Database_Controller.getAllregisters("Valideurs");
+        for (String register : allRegistersValideurs) {
+            System.out.println(register);
+        }
+        System.out.println();
+
+
+        System.out.println("Contenu table Avis: ");
+        List<String> allRegistersAvis = Database_Controller.getAllregisters("Avis");
+        for (String register : allRegistersAvis) {
+            System.out.println(register);
+        }
+        System.out.println();
+
+
+
+
+
         
-        // L'utilisateur valideur aprouve la mission (le statut de la mission change)
-        val.validateMission(mission, true, null);
-
-        // Le benevole qu'on vient de creer s'incrit dans la mission disponible
-        benevole.CouvrirMission(mission);
 
 
-        //Le benevole termine la mission
-        benevole.terminerMission(mission);
-
-        //Et il laisse un avis
-        benevole.laisserAvis(mission, "Bonne mission");
-        
     }
 }

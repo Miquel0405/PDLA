@@ -33,7 +33,7 @@ public class Database_Controller {
                 if (generatedKeys.next()) {
                     return generatedKeys.getInt(1); // Devuelve la primera clave generada
                 } else {
-                    throw new SQLException("La inserción falló, no se generó ningún ID.");
+                    throw new SQLException("LAucun ID générée");
                 }
             }
         }
@@ -101,6 +101,7 @@ public class Database_Controller {
         statement.execute();
     }
 
-
-
 }
+
+
+
