@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import planasleiman.Missions.Mission;
@@ -15,6 +16,19 @@ import planasleiman.Verifying.Valideur;
 import planasleiman.database.Database_Controller;
 
 public class ValideurTest {
+
+    @BeforeEach
+    void cleantables() throws SQLException{
+        try (Connection conn = Database_Controller.getConnection();
+            PreparedStatement stmt1 = conn.prepareStatement("DELETE FROM Valideurs")) {
+            stmt1.executeUpdate();
+        }
+        try (Connection conn = Database_Controller.getConnection();
+            PreparedStatement stmt2 = conn.prepareStatement("DELETE FROM Users")) {
+            stmt2.executeUpdate();
+        }
+    }
+    
 
     @Test
     void saveValideurTest() throws SQLException{

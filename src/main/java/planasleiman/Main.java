@@ -174,6 +174,13 @@ public class Main {
 
         // Le benevole qu'on vient de creer s'incrit dans la mission disponible
         benevole.CouvrirMission(mission);
+
+
+        //Le benevole termine la mission
+        benevole.terminerMission(mission);
+
+        //Et il laisse un avis
+        benevole.laisserAvis(mission, "Bonne mission");
         
     }
 }

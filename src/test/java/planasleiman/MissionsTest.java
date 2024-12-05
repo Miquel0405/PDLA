@@ -29,7 +29,10 @@ public class MissionsTest {
             PreparedStatement stmt2 = conn.prepareStatement("DELETE FROM Users")) {
             stmt2.executeUpdate();
         }
-        
+        try (Connection conn = Database_Controller.getConnection();
+            PreparedStatement stmt2 = conn.prepareStatement("DELETE FROM Valideurs")) {
+            stmt2.executeUpdate();
+        }
     }
 
 

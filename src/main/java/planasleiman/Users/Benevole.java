@@ -45,7 +45,7 @@ public class Benevole extends User{
 	}
 
 	public Avis laisserAvis(Mission mission, String texteavis) {
-		if (mission.getStatus().equals("Terminée")) {
+		if (!mission.getStatus().equals("Terminée")) {
             throw new IllegalStateException("Pas possible de laisser un avis avant de terminer une mission.");
         }
         Avis avis = new Avis(texteavis, mission);

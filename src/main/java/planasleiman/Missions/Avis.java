@@ -8,6 +8,7 @@ public class Avis {
     private int idAvis;
     private String text;
     private Mission mission;
+
     public Avis(String text, Mission mission) {
         this.text = text;
         this.mission = mission;
@@ -38,7 +39,7 @@ public class Avis {
 
     public void saveAvis() {
         try {
-            this.idAvis = Database_Controller.insertData("Avis", "text, idMission", getText(), getMission().getIdMission());
+            this.idAvis = Database_Controller.insertData("Avis", "text, idMissions", getText(), getMission().getIdMission());
         } catch (SQLException e) {
             System.err.println("Error adding an opinion to the database");
             e.printStackTrace();
