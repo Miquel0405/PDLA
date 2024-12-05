@@ -4,7 +4,6 @@ import java.sql.SQLException;
 
 import planasleiman.Missions.Avis;
 import planasleiman.Missions.Mission;
-import planasleiman.Missions.MissionDejaCouverte;
 import planasleiman.database.Database_Controller;
 
 public class Benevole extends User{
@@ -24,12 +23,16 @@ public class Benevole extends User{
 	}
 
 
-	public void CouvrirMission(Mission mission) throws MissionDejaCouverte{
-		if (mission.getBenevole() == null){
+	public void CouvrirMission(Mission mission) throws IllegalAccessError{
+		if (mission.getBenevole() != null){
+			throw new IllegalAccessError("Mission deja couverte");
+		} else if (!mission.getStatus().equals("Acceptée")){
+			throw new IllegalAccessError("Impossible de couvrir une mission non acceptée");
+		} else {
 			mission.setBenevole(this);
 			mission.updateMissionBenevole();
-		}else{
-			throw new MissionDejaCouverte(mission);
+			mission.setStatus("Affectée");
+			mission.updateMissionStatus();
 		}
 	}
 

@@ -56,7 +56,7 @@ public class Valideur {
 
     public void saveValideur(){
 		try {
-			this.idValideur = Database_Controller.insertData("Valideurs", "nom, telephone, mail", getNom(), getTelephone(), getMail());
+			this.idValideur = Database_Controller.insertData("Valideurs", "Nom, telephone, mail", getNom(), getTelephone(), getMail());
 		} catch (SQLException e) {
 			System.err.println("Error adding a Valideur to the database");
 			e.printStackTrace();

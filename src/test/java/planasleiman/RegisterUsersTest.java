@@ -26,11 +26,12 @@ public class RegisterUsersTest {
 
     @Test
     void registrerBenevoleTest() throws Exception {
-        Benevole benevole = new Benevole("NomTest", "PrenomTest", "123456789", "test@mail.com", "Adresse test");
 
+        //On cree un nouveau benevole et on l'enregistre dans la base de donnees
+        Benevole benevole = new Benevole("NomTest", "PrenomTest", "123456789", "test@mail.com", "Adresse test");
         benevole.saveinDatabase();
 
-        // Verifica si se registró correctamente
+        // On regarde s'il a ete bien enregistre
         try (Connection conn = Database_Controller.getConnection();
             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Users WHERE idUsers = ?")) {
             stmt.setString(1, String.valueOf(benevole.getIdUser()));
@@ -48,12 +49,12 @@ public class RegisterUsersTest {
 
     @Test
     void registrerBeneficiaireTest() throws Exception {
+
+        //On cree un nouveau beneficiaire et on l'enregistre dans la base de donnees
         Beneficiaire beneficiaire = new Beneficiaire("NomTest", "PrenomTest", "123456789", "test@mail.com", "Adresse test");
-        
-        // Invoca el método a probar
         beneficiaire.saveinDatabase();
 
-        // Verifica si se registró correctamente
+        // On regarde s'il a ete bien enregistre
         try (Connection conn = Database_Controller.getConnection();
             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Users WHERE idUsers = ?")) {
             stmt.setString(1, String.valueOf(beneficiaire.getIdUser()));

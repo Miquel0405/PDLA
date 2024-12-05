@@ -74,9 +74,6 @@ public class Mission {
 
 	/*Setters */
 	public void setBenevole(Benevole benevole) {
-		if (!this.status.equals("Acceptée")){
-			throw new IllegalStateException("Les benevoles uniquement peuvent s'inscrire sur des missions 'Acceptées'.");
-		}
 		this.benevole = benevole;
 		if (benevole != null){
 			this.status = "Assignée";
@@ -90,7 +87,7 @@ public class Mission {
 
 
 	public void terminerMission(){
-		if(this.status.equals("Assignée")){
+		if(this.status.equals("Affectée")){
 			this.status = "Terminée";
 			updateMissionStatus();
 		}else{
@@ -100,7 +97,7 @@ public class Mission {
 
 	public void saveMission(){
 		try {
-			this.idMission = Database_Controller.insertData("Missions", "titre, description, idBeneficiaire, status, valideur", getTitle(), getDescription(), getBeneficiaire().getIdUser(), getStatus(), getValideur().getIdValideur());
+			this.idMission = Database_Controller.insertData("Missions", "titre, description, idBeneficiaire, status, idValideur", getTitle(), getDescription(), getBeneficiaire().getIdUser(), getStatus(), getValideur().getIdValideur());
 		} catch (SQLException e) {
 			System.err.println("Error adding a mission to the database");
 			e.printStackTrace();
@@ -113,7 +110,7 @@ public class Mission {
 		} catch (SQLException e) {
 			System.err.println("Error updating a mission");
 			e.printStackTrace();
-		}	
+		}
 	}
 
 	public void updateMissionStatus(){
@@ -122,6 +119,6 @@ public class Mission {
 		} catch (SQLException e) {
 			System.err.println("Error updating a mission");
 			e.printStackTrace();
-		}	
+		}
 	}
 }
